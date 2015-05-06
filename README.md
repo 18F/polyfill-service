@@ -5,6 +5,25 @@ Status](https://travis-ci.org/Financial-Times/polyfill-service.svg?branch=master
 
 Makes web development less frustrating by selectively polyfilling just what the browser needs. Use it on your own site, or as a service.  For usage information see the [hosted service](https://cdn.polyfill.io), which formats and displays the service API documentation located in the [docs](docs/) folder.
 
+## Deploy to Cloud Foundry
+
+Polyfill service runs out of the box in Cloud Foundry with one caveat: The current node.js buildpack has no option to install without the `--production` flag. As a result, devDependencies including grunt are not installed.
+
+A straightforward workaround is [bundling](http://docs.cloudfoundry.org/buildpacks/node/node-tips.html#nodemodules) prior to the push.
+
+    npm install
+
+With that done, a basic `manifest.yml` will suffice to describe the application.
+
+	---
+	applications:
+	- name: polyfill
+	  memory: 256M
+
+With dependencies bundled and a manifest in place the app is ready to be pushed.
+
+    cf push
+
 ## Installing as a service
 
 1. Install [git](http://git-scm.com/downloads) and [Node](http://nodejs.org) on your system

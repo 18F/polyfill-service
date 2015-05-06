@@ -1,0 +1,4 @@
+---
+applications:
+- name: polyfill-svc
+  memory: 256M
